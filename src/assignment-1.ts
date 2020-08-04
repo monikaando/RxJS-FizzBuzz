@@ -39,10 +39,12 @@ const fizz$: Observable<string> = counter$.pipe
 const buzz$: Observable<string> = counter$.pipe
     (map(n => n % 5 === 0 ? 'Buzz' : null));
 
-const fizzBuzz$ =
-    zip(counter$, fizz$, buzz$).pipe(
-        map(([counter$, fizz$, buzz$]) => ({counter$, fizz$, buzz$})),
+const fizzBuzz$ = zip(counter$, fizz$, buzz$)
+    .pipe(
+        map(
+            ([counter$, fizz$, buzz$]) =>
+                ([fizz$ == null && buzz$ == null ? counter$: null, fizz$, buzz$]).toString().replace(/,/g, '')
+        )
     )
-    // .subscribe(val => console.log(val));
 export default fizzBuzz$;
 
