@@ -43,8 +43,7 @@ const fizzBuzz$ = zip(counter$, fizz$, buzz$)
                 ([fizz$ == null && buzz$ == null ? counter$ : null,
                   fizz$,
                   buzz$])
-                    .toString()
-                    .replace(/,/g, '')
+            .filter((v) => v !== null).join('')
         )
     )
 export default fizzBuzz$;
