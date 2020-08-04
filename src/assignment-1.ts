@@ -26,24 +26,25 @@ import {map} from 'rxjs/operators';
     14
     FizzBuzz
 */
-// const fizzBuzz$ = interval(1000).pipe(
-//     map(n => n += 1)
-// );
 
 const counter$: Observable<number> = interval(1000).pipe
-    (map(n => n += 1));
+(map(n => n += 1));
 
 const fizz$: Observable<string> = counter$.pipe
-    (map(n => n % 3 === 0 ? 'Fizz' : null));
+(map(n => n % 3 === 0 ? 'Fizz' : null));
 
 const buzz$: Observable<string> = counter$.pipe
-    (map(n => n % 5 === 0 ? 'Buzz' : null));
+(map(n => n % 5 === 0 ? 'Buzz' : null));
 
 const fizzBuzz$ = zip(counter$, fizz$, buzz$)
     .pipe(
         map(
             ([counter$, fizz$, buzz$]) =>
-                ([fizz$ == null && buzz$ == null ? counter$: null, fizz$, buzz$]).toString().replace(/,/g, '')
+                ([fizz$ == null && buzz$ == null ? counter$ : null,
+                  fizz$,
+                  buzz$])
+                    .toString()
+                    .replace(/,/g, '')
         )
     )
 export default fizzBuzz$;
